@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Card Activation API",
+    "title": "Card Activation API V1",
     "contact": {},
     "version": "v2"
   },
