@@ -1,0 +1,1412 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Card Activation API",
+    "contact": {},
+    "version": "v2"
+  },
+  "servers": [
+    {
+      "url": "https://api.beta.coop.org/card-activation/{version}",
+      "variables": {
+        "version": {
+          "default": "v2"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/omaha/card-activation": {
+      "put": {
+        "tags": [
+          "omaha"
+        ],
+        "summary": "OmahaCardActivation_PUT",
+        "description": "Activate or deactivate a card account on the Omaha platform.",
+        "operationId": "OmahaCardActivation_PUT",
+        "parameters": [
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "description": "This field can be used to uniquely identify an individual request or to correlate a group of requests.",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "90fc2e68-df68-4006-a4ad-62b2a0552065"
+            }
+          },
+          {
+            "name": "client_id",
+            "in": "header",
+            "description": "The client id of the requesting party used for authorization.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "269d98e4922fb3895e9ae2108cbb5064"
+            }
+          },
+          {
+            "name": "client_secret",
+            "in": "header",
+            "description": "The client secret of the requesting party used for authorization.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "269d98e4922fb3895e9ae2108cbb5064"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OmahaCardActivationrequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BoolResponse"
+                },
+                "example": {
+                  "data": "true",
+                  "message": "Successfully activated card",
+                  "returnCode": "200",
+                  "success": "true"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.\nUnspecified error due to the request being invalid. Do not retry.        \n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "400",
+                  "title": "Bad Request",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The supplied credentials are invalid.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "401",
+                  "title": "Not Authorized",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "Invalid client credentials",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized.\nThe client is not authorized to use the given API. Do not retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "403",
+                  "title": "Forbidden",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "Insufficient card activation priveleges",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found.\nThere is no such API at the given request URL. Do not retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "404",
+                  "title": "Resource not found",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "A request was made of a resource using a request method not supported by that resource.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "405",
+                  "title": "Method not allowed",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "Allow: GET",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "The target resource does not have a current representation that would be acceptable to the user agent. \n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "406",
+                  "title": "Not acceptable",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "The accept header specified an unsupported media type.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "415",
+                  "title": "Unsupported media type",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests.\nToo many requests to the API were received within a period of time. Retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "429",
+                  "title": "Too Many Requests",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Failure.\nUnspecified error occurred on the server. Retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "500",
+                  "title": "Internal Server Error",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/connex/card-activation": {
+      "put": {
+        "tags": [
+          "connex"
+        ],
+        "summary": "ConnexCardActivation_PUT",
+        "description": "Activate or deactivate a card account on the Connex platform.",
+        "operationId": "ConnexCardActivation_PUT",
+        "parameters": [
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "description": "This field can be used to uniquely identify an individual request or to correlate a group of requests.",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "90fc2e68-df68-4006-a4ad-62b2a0552065"
+            }
+          },
+          {
+            "name": "client_id",
+            "in": "header",
+            "description": "The client id of the requesting party used for authorization.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "269d98e4922fb3895e9ae2108cbb5064"
+            }
+          },
+          {
+            "name": "client_secret",
+            "in": "header",
+            "description": "The client secret of the requesting party used for authorization.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "269d98e4922fb3895e9ae2108cbb5064"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConnexCardActivationrequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BoolResponse"
+                },
+                "example": {
+                  "data": "true",
+                  "message": "Successfully activated card",
+                  "returnCode": "200",
+                  "success": "true"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.\nUnspecified error due to the request being invalid. Do not retry.        \n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "400",
+                  "title": "Bad Request",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The supplied credentials are invalid.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "401",
+                  "title": "Not Authorized",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "Invalid client credentials",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized.\nThe client is not authorized to use the given API. Do not retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "403",
+                  "title": "Forbidden",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "Insufficient card activation priveleges",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found.\nThere is no such API at the given request URL. Do not retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "404",
+                  "title": "Resource not found",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "A request was made of a resource using a request method not supported by that resource.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "405",
+                  "title": "Method not allowed",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "Allow: GET",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "The target resource does not have a current representation that would be acceptable to the user agent. \n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "406",
+                  "title": "Not acceptable",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "The accept header specified an unsupported media type.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "415",
+                  "title": "Unsupported media type",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests.\nToo many requests to the API were received within a period of time. Retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "429",
+                  "title": "Too Many Requests",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Failure.\nUnspecified error occurred on the server. Retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "500",
+                  "title": "Internal Server Error",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/ping": {
+      "get": {
+        "tags": [
+          "ping"
+        ],
+        "summary": "Ping_GET",
+        "description": "hearbeat check",
+        "operationId": "Ping_GET",
+        "parameters": [
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "description": "This field can be used to uniquely identify an individual request or to correlate a group of requests.",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "90fc2e68-df68-4006-a4ad-62b2a0552065"
+            }
+          },
+          {
+            "name": "client_id",
+            "in": "header",
+            "description": "The client id of the requesting party used for authorization.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "269d98e4922fb3895e9ae2108cbb5064"
+            }
+          },
+          {
+            "name": "client_secret",
+            "in": "header",
+            "description": "The client secret of the requesting party used for authorization.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "269d98e4922fb3895e9ae2108cbb5064"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ping"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.\nUnspecified error due to the request being invalid. Do not retry.        \n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "400",
+                  "title": "Bad Request",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The supplied credentials are invalid.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "401",
+                  "title": "Not Authorized",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "Invalid client credentials",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized.\nThe client is not authorized to use the given API. Do not retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "403",
+                  "title": "Forbidden",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "Insufficient card activation priveleges",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found.\nThere is no such API at the given request URL. Do not retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "404",
+                  "title": "Resource not found",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "A request was made of a resource using a request method not supported by that resource.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "405",
+                  "title": "Method not allowed",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "Allow: GET",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "The target resource does not have a current representation that would be acceptable to the user agent. \n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "406",
+                  "title": "Not acceptable",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "The accept header specified an unsupported media type.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "415",
+                  "title": "Unsupported media type",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests.\nToo many requests to the API were received within a period of time. Retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "429",
+                  "title": "Too Many Requests",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Failure.\nUnspecified error occurred on the server. Retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "500",
+                  "title": "Internal Server Error",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "ping"
+        ],
+        "summary": "Ping_PUT",
+        "description": "hearbeat check",
+        "operationId": "Ping_PUT",
+        "parameters": [
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "description": "This field can be used to uniquely identify an individual request or to correlate a group of requests.",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "90fc2e68-df68-4006-a4ad-62b2a0552065"
+            }
+          },
+          {
+            "name": "client_id",
+            "in": "header",
+            "description": "The client id of the requesting party used for authorization.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "269d98e4922fb3895e9ae2108cbb5064"
+            }
+          },
+          {
+            "name": "client_secret",
+            "in": "header",
+            "description": "The client secret of the requesting party used for authorization.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "269d98e4922fb3895e9ae2108cbb5064"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ping"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.\nUnspecified error due to the request being invalid. Do not retry.        \n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "400",
+                  "title": "Bad Request",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The supplied credentials are invalid.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "401",
+                  "title": "Not Authorized",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "Invalid client credentials",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized.\nThe client is not authorized to use the given API. Do not retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "403",
+                  "title": "Forbidden",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "Insufficient card activation priveleges",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found.\nThere is no such API at the given request URL. Do not retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "404",
+                  "title": "Resource not found",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "A request was made of a resource using a request method not supported by that resource.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "405",
+                  "title": "Method not allowed",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "Allow: GET",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "The target resource does not have a current representation that would be acceptable to the user agent. \n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "406",
+                  "title": "Not acceptable",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "The accept header specified an unsupported media type.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "415",
+                  "title": "Unsupported media type",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests.\nToo many requests to the API were received within a period of time. Retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "429",
+                  "title": "Too Many Requests",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Failure.\nUnspecified error occurred on the server. Retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "500",
+                  "title": "Internal Server Error",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "ping"
+        ],
+        "summary": "Ping_POST",
+        "description": "hearbeat check",
+        "operationId": "Ping_POST",
+        "parameters": [
+          {
+            "name": "x-correlation-id",
+            "in": "header",
+            "description": "This field can be used to uniquely identify an individual request or to correlate a group of requests.",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "90fc2e68-df68-4006-a4ad-62b2a0552065"
+            }
+          },
+          {
+            "name": "client_id",
+            "in": "header",
+            "description": "The client id of the requesting party used for authorization.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "269d98e4922fb3895e9ae2108cbb5064"
+            }
+          },
+          {
+            "name": "client_secret",
+            "in": "header",
+            "description": "The client secret of the requesting party used for authorization.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "269d98e4922fb3895e9ae2108cbb5064"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ping"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.\nUnspecified error due to the request being invalid. Do not retry.        \n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "400",
+                  "title": "Bad Request",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The supplied credentials are invalid.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "401",
+                  "title": "Not Authorized",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "Invalid client credentials",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized.\nThe client is not authorized to use the given API. Do not retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "403",
+                  "title": "Forbidden",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "Insufficient card activation priveleges",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found.\nThere is no such API at the given request URL. Do not retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "404",
+                  "title": "Resource not found",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "A request was made of a resource using a request method not supported by that resource.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "405",
+                  "title": "Method not allowed",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "Allow: GET",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "The target resource does not have a current representation that would be acceptable to the user agent. \n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "406",
+                  "title": "Not acceptable",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "The accept header specified an unsupported media type.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "415",
+                  "title": "Unsupported media type",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests.\nToo many requests to the API were received within a period of time. Retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "429",
+                  "title": "Too Many Requests",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Failure.\nUnspecified error occurred on the server. Retry.\n",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "name": "API Name",
+                  "code": "500",
+                  "title": "Internal Server Error",
+                  "correlationId": "c70332d0-260f-11e7-98a1-c4b301c8ce30",
+                  "description": "",
+                  "invocationTimestamp": "2019-10-02T17:42:38Z"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Ping": {
+        "title": "Ping",
+        "required": [
+          "status",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "status code"
+          },
+          "message": {
+            "type": "string",
+            "description": "status message"
+          }
+        },
+        "description": "Heartbeat API response",
+        "example": {
+          "status": "200",
+          "message": "Alive and Well"
+        }
+      },
+      "BoolResponse": {
+        "title": "BoolResponse",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseResponse"
+          },
+          {
+            "required": [
+              "data"
+            ],
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "boolean"
+              }
+            },
+            "example": {
+              "success": "true",
+              "message": "Operation completed successfully.",
+              "returnCode": "201",
+              "data": "true"
+            }
+          }
+        ]
+      },
+      "ApiError": {
+        "title": "ApiError",
+        "required": [
+          "name",
+          "code",
+          "title",
+          "correlationId",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the API returning the response"
+          },
+          "code": {
+            "type": "string",
+            "description": "The HTTP status code of the response"
+          },
+          "title": {
+            "type": "string",
+            "description": "The humand-readable text of the equivalent HTTP status code"
+          },
+          "correlationId": {
+            "type": "string",
+            "description": "The unique ID associated with the transaction in which this API is involved"
+          },
+          "description": {
+            "type": "string",
+            "description": "A detailed message describing the problem in relation to the error type in the human-readable form"
+          },
+          "invocationTimestamp": {
+            "type": "string",
+            "description": "The time at which the API was invoked",
+            "format": "date-time"
+          }
+        },
+        "description": "Error object returned with 4XX and 5XX HTTP status"
+      },
+      "BaseResponse": {
+        "title": "BaseResponse",
+        "required": [
+          "returnCode",
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "returnCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "success": {
+            "type": "boolean"
+          }
+        },
+        "example": {
+          "success": "true",
+          "message": "Operation completed successfully.",
+          "returnCode": "201"
+        }
+      },
+      "DataResponse": {
+        "title": "DataResponse",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseResponse"
+          },
+          {
+            "required": [
+              "data"
+            ],
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "object"
+              }
+            },
+            "example": {
+              "success": "true",
+              "message": "Operation completed successfully.",
+              "returnCode": "201",
+              "data": {
+                "message": "Hello World."
+              }
+            }
+          }
+        ]
+      },
+      "action": {
+        "title": "action",
+        "enum": [
+          "activate",
+          "deactivate"
+        ],
+        "type": "string",
+        "description": "Action to perform against account"
+      },
+      "ConnexCardActivationrequest": {
+        "title": "ConnexCardActivationrequest",
+        "required": [
+          "pan",
+          "action",
+          "dateLastMaintained"
+        ],
+        "type": "object",
+        "properties": {
+          "pan": {
+            "pattern": "^[0-9]{14,19}$",
+            "type": "string",
+            "description": "Primary account number aka Card number aka Card account number"
+          },
+          "action": {
+            "$ref": "#/components/schemas/action"
+          },
+          "dateLastMaintained": {
+            "type": "string",
+            "description": "Timestamp for last maintenance onCard (batch, user interface). The API's will use this one for comparisons between Inquiry and Update. Format = YYYY-MM-DD:HH:MM:SS.SSSSSS <p><b><strong>Need to request Status API (v2/connex/status.get) to get this field.<strong><b><p>"
+          }
+        },
+        "example": {
+          "pan": "4111111111111111",
+          "action": "activate",
+          "dateLastMaintained": "2019-04-04:11:25:31.940000"
+        }
+      },
+      "OmahaCardActivationrequest": {
+        "title": "OmahaCardActivationrequest",
+        "required": [
+          "accountNumber",
+          "action"
+        ],
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "pattern": "^\\d{16}$",
+            "type": "string",
+            "example": "4133632058469273"
+          },
+          "action": {
+            "$ref": "#/components/schemas/action"
+          }
+        },
+        "example": {
+          "accountNumber": "4111111111111111",
+          "action": "activate"
+        }
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://api.beta.coop.org/card-activation/v2/dev-cloud.acronis.com/api/2/idp/authorize",
+            "scopes": {}
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
+  "tags": []
+}
